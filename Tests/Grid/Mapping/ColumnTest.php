@@ -10,6 +10,7 @@ class ColumnTest extends TestCase
     public function setUp()
     {
         $this->stringMetadata = 'foo_' . rand(0, 100);
+        $this->arrayMetadata = ['foo' => 'bar_' . rand(0, 100)];
     }
 
     public function testCanBeEmpty()
@@ -19,13 +20,24 @@ class ColumnTest extends TestCase
         $this->assertEquals(['default'], $column->getGroups());
     }
 
-    public function testColumnMetadataInjectedInConstructor()
+    public function testColumnStringMetadataInjectedInConstructor()
     {
         $column = new Column($this->stringMetadata);
         $realMetadata = $column->getMetadata();
 
         $this->assertEquals(
             $this->stringMetadata,
+            $realMetadata
+        );
+    }
+
+    public function testColumnArrayMetadataInjectedInConstructor()
+    {
+        $column = new Column($this->arrayMetadata);
+        $realMetadata = $column->getMetadata();
+
+        $this->assertEquals(
+            $this->arrayMetadata,
             $realMetadata
         );
     }
@@ -38,7 +50,7 @@ class ColumnTest extends TestCase
         $this->assertEquals($expectedGroups, $column->getGroups());;
     }
 
-    public function testGetMetadataWithGroups()
+    public function testCreatedWithGroups()
     {
         $randomGroups = 'groups_' . rand(10, 100);
         $expectedGroups = [$randomGroups];

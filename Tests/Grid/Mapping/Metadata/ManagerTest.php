@@ -11,19 +11,23 @@ use Symfony\Component\Validator\Constraints\DateTime;
 
 class ManagerTest extends TestCase
 {
-    public function testAddDriver()
+    public function testAddDriverWithStrings()
     {
         $manager = new Manager();
         $manager->addDriver('foo', 'bar');
         $driver = $manager->getDrivers();
 
-        $this->assertInstanceOf('\APY\DataGridBundle\Grid\Mapping\Metadata\DriverHeap', $driver);
+        $this->assertInstanceOf(
+            '\APY\DataGridBundle\Grid\Mapping\Metadata\DriverHeap',
+            $driver
+        );
     }
 
     public function testGetDriverReturnDifferentClone()
     {
         $manager = new Manager();
         $manager->addDriver('foo', 'bar');
+
         $driverFirstTime = $manager->getDrivers();
         $driverSecondTime = $manager->getDrivers();
 

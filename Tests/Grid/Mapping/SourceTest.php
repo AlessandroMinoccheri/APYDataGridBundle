@@ -7,7 +7,7 @@ use PHPUnit\Framework\TestCase;
 
 class SourceTest extends TestCase
 {
-    public function testSourceWithDefaultValue()
+    public function testCreatedWithDefaultValue()
     {
         $expectedGroups = array('0' => 'default');
         $source = new Source([]);
@@ -20,14 +20,14 @@ class SourceTest extends TestCase
         $this->assertEquals([], $source->getGroupBy());
     }
 
-    public function testSourceWithMetadata()
+    public function testCreatedWithMetadata()
     {
         $randomColumns = 'columns_' . rand(10, 100);
-        $expectedColumns = array('0' => $randomColumns);
+        $expectedColumns = [$randomColumns];
         $randomGroups = 'groups_' . rand(10, 100);
-        $expectedGroups = array('0' => $randomGroups);
+        $expectedGroups = [$randomGroups];
         $randomGroupsBy = 'groupBy_' . rand(10, 100);
-        $expectedGroupsBy = array('0' => $randomGroupsBy);
+        $expectedGroupsBy = [$randomGroupsBy];
         $filterable = false;
         $sortable = false;
 

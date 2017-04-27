@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 class MetadataTest extends TestCase
 {
-    public function testFieldsGetAndSet()
+    public function testSetFieldsWithString()
     {
         $randomField = 'foo_' . rand(0, 100);
 
@@ -19,7 +19,7 @@ class MetadataTest extends TestCase
         $this->assertEquals($randomField, $metadata->getFields());
     }
 
-    public function testFieldMappingWithoutField()
+    public function testMappingWithoutField()
     {
         $randomFieldMapping = 'foo_' . rand(0, 100);
 
@@ -39,11 +39,17 @@ class MetadataTest extends TestCase
         $metadata->setFieldsMappings($fieldMapping);
 
         $this->assertTrue($metadata->hasFieldMapping($fieldRandom));
-        $this->assertEquals($valueRandom, $metadata->getFieldMapping($fieldRandom));
-        $this->assertEquals('text', $metadata->getFieldMappingType($fieldRandom));
+        $this->assertEquals(
+            $valueRandom,
+            $metadata->getFieldMapping($fieldRandom)
+        );
+        $this->assertEquals(
+            'text',
+            $metadata->getFieldMappingType($fieldRandom)
+        );
     }
 
-    public function testFieldMappingWithType()
+    public function testMappingFieldWithType()
     {
         $fieldRandom = 'foo_' . rand(0, 100);
         $valueRandom = 'bar_' . rand(0, 100);
@@ -59,7 +65,7 @@ class MetadataTest extends TestCase
         $this->assertEquals($valueRandom, $metadata->getFieldMappingType($fieldRandom));
     }
 
-    public function testSetAndGetGroupBy()
+    public function testFillGroupByWithString()
     {
         $groupByRandom = 'groupBy_' . rand(0, 100);
 
@@ -69,7 +75,7 @@ class MetadataTest extends TestCase
         $this->assertEquals($groupByRandom, $metadata->getGroupBy());
     }
 
-    public function testSetAndGetName()
+    public function testFillNameWithString()
     {
         $nameRandom = 'name_' . rand(0, 100);
         
