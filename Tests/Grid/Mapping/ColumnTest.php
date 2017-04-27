@@ -7,25 +7,45 @@ use PHPUnit\Framework\TestCase;
 
 class ColumnTest extends TestCase
 {
-    public function testGetMetaDataAndGroupsDefault()
+    public function setUp()
     {
-        $expectedGroups = array('0' => 'default');
-        $randomMetadata = 'foo_' . rand(100, 1000);
-        $column = new Column($randomMetadata);
+        $this->stringMetadata = 'foo_' . rand(0, 100);
+    }
 
-        $this->assertEquals($randomMetadata, $column->getMetadata());
-        $this->assertEquals($expectedGroups, $column->getGroups());
+    public function testCanBeEmpty()
+    {
+        $column = new Column([]);
+        $this->assertEquals([], $column->getMetadata());
+        $this->assertEquals(['default'], $column->getGroups());
+    }
+
+    public function testColumnMetadataInjectedInConstructor()
+    {
+        $column = new Column($this->stringMetadata);
+        $realMetadata = $column->getMetadata();
+
+        $this->assertEquals(
+            $this->stringMetadata,
+            $realMetadata
+        );
+    }
+
+    public function testCreatedWithDefaultsGroup()
+    {
+        $column = new Column($this->stringMetadata);
+
+        $expectedGroups = ['default'];
+        $this->assertEquals($expectedGroups, $column->getGroups());;
     }
 
     public function testGetMetadataWithGroups()
     {
         $randomGroups = 'groups_' . rand(10, 100);
-        $expectedGroups = array('0' => $randomGroups);
-        $expectedMetadata = array('groups' => $randomGroups);
+        $expectedGroups = [$randomGroups];
+        $expectedMetadata = ['groups' => $randomGroups];
         $column = new Column($expectedMetadata);
 
         $this->assertEquals($expectedMetadata, $column->getMetadata());
         $this->assertEquals($expectedGroups, $column->getGroups());
-
     }
 }
